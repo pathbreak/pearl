@@ -2,7 +2,7 @@ import csv
 import pdb
 import json
 import itertools
-from utils import *
+from pearl.utils import *
 import argparse
 from tqdm import tqdm
 
