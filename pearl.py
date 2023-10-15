@@ -698,7 +698,7 @@ def parse_args():
     parser.add_argument("--output-file", type=str, default="")
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--shard-size", type=int, default=80, help="number of actions per shard during action simplification")
-    parser.add_argument("--maxq", type=int, default=10, help="max number of questions to use for action mining")
+    parser.add_argument("--maxq", type=int, default=0, help="max number of questions to use for action mining")
     return parser.parse_args()
 
 def main():
