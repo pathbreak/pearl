@@ -1,6 +1,7 @@
 import csv
 import pdb
 import json
+import itertools
 from utils import *
 import argparse
 from tqdm import tqdm
@@ -12,7 +13,7 @@ def mine_actions(args):
     fname = "./data/processed/quality_train_q.csv"
     questions = load_questions(fname)
     if args.maxq > 0:
-        questions = questions[:args.maxq]
+        questions = dict(itertools.islice(d.items(), args.maxq))
 
     qfilter = load_question_filter()
     questions = {qid: questions[qid] for qid in questions if qid not in qfilter['train_long']}
