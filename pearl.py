@@ -21,7 +21,7 @@ def mine_actions(args):
     prompt = load_prompt(f"./prompt_bank/mine_actions.txt")
 
     # mine actions
-    with open(args.output_file, "w+") as f:
+    with open(args.out_actionsgen_file, "w+") as f:
         writer = csv.DictWriter(f, fieldnames=["qid", "question"])
         writer.writeheader()
         ret = []
@@ -697,6 +697,7 @@ def parse_args():
     parser.add_argument("--prompt-plan-invalid-file", type=str, default="")
     parser.add_argument("--input-file", type=str, default="")
     parser.add_argument("--output-file", type=str, default="")
+    parser.add_argument("--out-actionsgen-file", type=str, default="")
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--shard-size", type=int, default=80, help="number of actions per shard during action simplification")
     parser.add_argument("--maxq", type=int, default=0, help="max number of questions to use for action mining")
