@@ -18,7 +18,8 @@ def openai_setapi():
     openai.api_type = "open_ai"
     openai.api_base = 'https://api.openai.com/v1'
     openai.api_version = None
-    openai.api_key = os.getenv("OPENAI_API_KEY_OAI")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.organization = os.getenv("OPENAI_ORGANIZATION")
 
 def get_response_openai(kwargs):
     run = True
