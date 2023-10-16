@@ -9,7 +9,7 @@ from tqdm import tqdm
 openai_setapi()
 
 def mine_med_actions(args):
-    # get converted questions
+    # get raw questions
     fname = "./data/raw/question_driven_answer_summarization_primary_dataset.json"
     questions = load_medqa_questions(fname)
     if args.maxq > 0:
@@ -703,7 +703,8 @@ def pearl(args, this_split="dev", this_type="ctx_eval_long"):
                    
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", type=str, choices=["mine_actions", "simplify_actions", "refine", "baseline_mcq", "baseline_gqa", "pearl"])
+    parser.add_argument("--stage", type=str, 
+        choices=["mine_med_actions", "simplify_actions", "refine", "baseline_mcq", "baseline_gqa", "pearl"])
     parser.add_argument("--prompt-plan-file", type=str, default="")
     parser.add_argument("--prompt-plan-invalid-file", type=str, default="")
     parser.add_argument("--input-file", type=str, default="")
@@ -716,8 +717,8 @@ def parse_args():
 
 def main():
     args = parse_args()
-    if args.stage == "mine_actions":
-        mine_actions(args)
+    if args.stage == "mine_med_actions":
+        mine_med_actions(args)
 
     elif args.stage == "simplify_actions":
         simplify_actions(args)
