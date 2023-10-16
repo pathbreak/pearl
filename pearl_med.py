@@ -228,7 +228,7 @@ class Action(object):
         else:
             return "\n".join(args)
 
-def generate_plan(question,  
+def generate_med_plan(question,  
                 invalid_plan=None, 
                 error_message=None, 
                 all_error_messages=None, 

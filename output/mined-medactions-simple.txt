@@ -1,0 +1,21 @@
+PROGNOSIS_AND_RECOVERY(CTX, X) #Find information about the prognosis, chances of recovery, and harmful effects for X in the input CTX.
+
+DIAGNOSTIC_TESTS(CTX, X) #Find diagnostic tests, screening methods, and testing methods for X given the input CTX.
+
+PREVALENCE_AND_TRANSMISSION(CTX, X) #Find the prevalence, commonness, and transmission information of X in the input CTX.
+
+STOP_AND_PREVENT(CTX, X) #Find recommendations, steps to stop using X, and prevention methods for X given the input CTX.
+
+TREATMENT_AND_EFFECTIVENESS(CTX, X) #Find treatment options, effectiveness, and success of X in the input CTX.
+
+INHERITANCE_AND_CAUSES(CTX, X) #Find information about how X is inherited, passed down, and its causes in the input CTX.
+
+COMPATIBILITY(CTX, X, Y) #Find information about the compatibility of X and Y in the input CTX.
+
+TREAT_CAUSE(CTX, X, Y) #Find treatment plans for X caused by Y in the input CTX.
+
+DOCTORS_CONSENSUS(CTX, X) #Find the consensus of medical doctors on X in the input CTX.
+
+ADMINISTER(CTX, X) #Find the method of administering X given the input CTX.
+
+SUPPORT(CTX, X) #Find support resources and groups for X in the input CTX.
