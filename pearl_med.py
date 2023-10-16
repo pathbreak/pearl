@@ -70,7 +70,7 @@ def mine_med_actions(args):
 
 def simplify_actions(args):
     input_actions = load_text(args.input_file).split('\n')
-    simplify_prompt = load_prompt(f"./prompt_bank/simplify_actions.txt")
+    simplify_prompt = load_prompt(f"./prompt_bank/med_simplify_actions.txt")
     shard_size = args.shard_size
     num_shards = len(input_actions) // shard_size + 1
     output = ''

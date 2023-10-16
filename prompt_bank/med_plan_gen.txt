@@ -1,0 +1,123 @@
+[Actions]
+{action_list}
+* Note: The output of each action can be the input to other actions.
+
+[Instructions]
+Suppose you are given a question about an article, as well as a list of potential actions (shown above) that you can execute to solve the question . You can imagine the actions as functions in a program, where you have input arguments, as well as output. The output of an action can be fed as input to another action. Please present a sequence of actions that you would use to answer the question after you read the article. The sequence of actions should be specific and cover all the details about the question. Please prioritize using the actions presented in the list above. If you need to add new actions, please follow the format below. Please assign the output of each action with a distinct name, which can be passed into other actions as argument. Think twice before you provide your answer. Make sure your answer is valid, clear, and easy to understand. Keep the answer simple and remove any unnecessary steps. Do not use list comprehension or dictionary comprehension. Keep each action minimally simple. If a question is unanswerable (e.g., requires options), collect as much information as possible from the input such that it will be answerable when provided with options. Your answer should follow the format: 
+```
+New actions:
+- new_action_1(arguments) : [one-sentence general explanation] or "-None" if there no need to add new actions
+- new_action_2(arguments) : [one-sentence general explanation] or "-None" if there no need to add new actions
+
+1. output_1 = action_1(here goes arguments) : [one-sentence explanation]
+2. output_2 = action_2(here goes arguments) : [one-sentence explanation]
+...
+```
+
+The following are a few examples
+
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+---
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+---
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+
+---
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+
+---
+Question: ""
+Answer:
+New actions:
+- FIND_ALL_ISSUES(CTX, X) : 
+
+1. 
+
+---
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+
+---
+Question: ""
+Answer:
+New actions:
+- None
+
+1. 
+
+
+---
+Question: ""
+Answer:
+New actions:
+- PREDICT_CAREER(CTX, X, Y) : 
+
+1. 
+
+---
+Question: ""
+Answer:
+New actions:
+- EVALUATE_PROBABILITY(CTX, X, Y) : 
+
+1. 
+
+
+---
+Question: "Which word doesn't describe the security guard?"
+Answer:
+New actions:
+- None
+
+1. security_guard = FIND_CHARACTER(CTX, "security guard") : Find and summarize the character traits of the security guard in the input article
+2. word = FIND(CTX, "word", "security guard") : Find the words that describe the security guard in the input article
+3. ans = CONCAT(security_guard, word) : Combine the character traits and the words that describe the security guard to form the final answer since no options are provided yet
+
+
+---
+Question: "Of the following options, which seems to be Tremaine's biggest asset in his investigation?"
+Answer:
+New actions:
+- SORT(CTX, X): Sort the elements in X in ascending order with concise reasons, based on the input article
+
+1. tremaine = IDENTIFY_ELEMENT(CTX, "Tremaine") : Identify who Tremaine is in the input article
+2. tremaine_asset = FIND_ELEMENT(CTX, "asset", tremaine) : Find and list all the assets of Tremaine in his investigation in the input article
+3. tremaine_values = SORT(CTX, tremaine_asset) : Sort the assets of Tremaine in ascending order based on the input article, the last one should be the biggest asset
+
+
+[Question]
+Now you are given a question about an article:
+    {question}
+Please provide a plan (sequence of actions) that can arrive to the answer after reading the article. As the corresponding options are not provided for the question, when the question is not answerable without the options, simply collect as much information as possible from the input such that it will be answerable with the options. Make sure the plan you generate is valid and faithful to the question.
+
+
+[Answer]

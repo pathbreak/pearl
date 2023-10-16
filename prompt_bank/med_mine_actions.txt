@@ -36,7 +36,7 @@ My new actions:
 - None
 
 My sequence of actions:
-1. cause = FIND_REASON(CTX, "cystic fibrosis") : ind and summarize the cause or reason of cystic fibrosis given input CTX.
+1. cause = FIND_REASON(CTX, "cystic fibrosis") : Find and summarize the cause or reason of cystic fibrosis given input CTX.
 ```
 
 Your answer must follow the following rules:
