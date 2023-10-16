@@ -16,103 +16,32 @@ New actions:
 
 The following are a few examples
 
-Question: ""
+Question: "Any good info on Lewy Body Dementia?"
+Answer:
+New actions:
+- OVERVIEW(CTX, X) : Summarize all the essential information about X in input CTX
+- SYMPTOMS(CTX, X) : Find information about all the symptoms of X in input CTX
+- CONCAT(S1, S2, ...) : Concatenate the given inputs.
+
+1. overview = OVERVIEW(CTX, "Lewy Body Dementia") : Summarize all the essential information about Lewy Body Dementia in input CTX
+2. inherit = INHERITANCE_AND_CAUSES(CTX, "Lewy Body Dementia") : Find information about how Lewy Body Dementia is inherited, passed down, and its causes in the input CTX.
+3. symptoms = SYMPTOMS(CTX, "Lewy Body Dementia") : Find information about all the symptoms of Lewy Lewy Body Dementia in input CTX.
+4. help = SUPPORT(CTX, "Lewy Body Dementia") : Find support resources and groups for X in the input CTX.
+5. ans = CONCAT(overview, inherit, symptoms, help) : Concatenate the given strings.
+
+---
+
+Question: "Possible treatments for Vitelliform Macular Dystrophy?"
 Answer:
 New actions:
 - None
 
-1. 
+1. overview = OVERVIEW(CTX, "Vitelliform Macular Dystrophy") : Summarize all the essential information about Vitelliform Macular Dystrophy in input CTX
+2. prognosis = PROGNOSIS_AND_RECOVERY(CTX, "Vitelliform Macular Dystrophy") : Find information about the prognosis, chances of recovery, and harmful effects for Vitelliform Macular Dystrophy in the input CTX.
+3. treatment = TREATMENT_AND_EFFECTIVENESS(CTX, "Vitelliform Macular Dystrophy") : Find treatment options, effectiveness, and success of Vitelliform Macular Dystrophy in the input CTX.
+4. ans = CONCAT(overview, prognosis, treatment) : Concatenate the given strings.
 
 ---
-Question: ""
-Answer:
-New actions:
-- None
-
-1. 
-
----
-Question: ""
-Answer:
-New actions:
-- None
-
-1. 
-
-
----
-Question: ""
-Answer:
-New actions:
-- None
-
-1. 
-
-
----
-Question: ""
-Answer:
-New actions:
-- FIND_ALL_ISSUES(CTX, X) : 
-
-1. 
-
----
-Question: ""
-Answer:
-New actions:
-- None
-
-1. 
-
-
----
-Question: ""
-Answer:
-New actions:
-- None
-
-1. 
-
-
----
-Question: ""
-Answer:
-New actions:
-- PREDICT_CAREER(CTX, X, Y) : 
-
-1. 
-
----
-Question: ""
-Answer:
-New actions:
-- EVALUATE_PROBABILITY(CTX, X, Y) : 
-
-1. 
-
-
----
-Question: "Which word doesn't describe the security guard?"
-Answer:
-New actions:
-- None
-
-1. security_guard = FIND_CHARACTER(CTX, "security guard") : Find and summarize the character traits of the security guard in the input article
-2. word = FIND(CTX, "word", "security guard") : Find the words that describe the security guard in the input article
-3. ans = CONCAT(security_guard, word) : Combine the character traits and the words that describe the security guard to form the final answer since no options are provided yet
-
-
----
-Question: "Of the following options, which seems to be Tremaine's biggest asset in his investigation?"
-Answer:
-New actions:
-- SORT(CTX, X): Sort the elements in X in ascending order with concise reasons, based on the input article
-
-1. tremaine = IDENTIFY_ELEMENT(CTX, "Tremaine") : Identify who Tremaine is in the input article
-2. tremaine_asset = FIND_ELEMENT(CTX, "asset", tremaine) : Find and list all the assets of Tremaine in his investigation in the input article
-3. tremaine_values = SORT(CTX, tremaine_asset) : Sort the assets of Tremaine in ascending order based on the input article, the last one should be the biggest asset
-
 
 [Question]
 Now you are given a question about an article:

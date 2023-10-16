@@ -91,8 +91,8 @@ def simplify_actions(args):
         f.write(output)
 
 def load_actions():
-    global all_actions
-    all_actions = {}
+    global all_med_actions
+    all_med_actions = {}
 
     with open(f"./output/mined_actions_simplified_example.txt", "r") as f:
         for line in f:
@@ -101,13 +101,13 @@ def load_actions():
                 action_type = lsp[0][:lsp[0].index("(")]
                 action_args = lsp[0][lsp[0].index("(")+1:lsp[0].index(")")].split(",")
                 action_def = lsp[1].strip()
-                if action_type in all_actions:
+                if action_type in all_med_actions:
                     print(f"Warning: {action_type} already exists")
-                all_actions[action_type] = {"args": [x.strip() for x in action_args], "action_def": action_def}
+                all_med_actions[action_type] = {"args": [x.strip() for x in action_args], "action_def": action_def}
             except:
                 pdb.set_trace()
 
-    print(len(all_actions))
+    print(len(all_med_actions))
 
 def get_option_str(question):
     options = ''
@@ -176,10 +176,10 @@ def load_csv(fname):
 class Action(object):
     def __init__(self, question, entire_plan, action_type, detailed_action, action_def=None, current_action=None):
 
-        global all_actions
+        global all_med_actions
         self.this_action = action_type
-        self.args = all_actions[action_type]["args"]
-        self.action_def = all_actions[action_type]["action_def"] if action_def is None else action_def
+        self.args = all_med_actions[action_type]["args"]
+        self.action_def = all_med_actions[action_type]["action_def"] if action_def is None else action_def
         original_action = f"{action_type}({','.join(self.args)})"
         self.entire_plan = [x for x in entire_plan.split("\n\n") if len(x.strip()) > 0][1]
         self.question = question
@@ -236,7 +236,7 @@ def generate_plan(question,
                 plan_prompt=None,
                 plan_prompt_invalid=None):
 
-    action_list = load_text("./output/mined_actions_simplified_example.txt")
+    action_list = load_text("./output/mined_medactions_simple.txt")
 
     if invalid_plan is None:
         plan_generation_prompt = load_prompt(plan_prompt)
@@ -285,7 +285,7 @@ def parse_plan(plan):
             error message
             invalid plan
     """
-    global all_actions
+    global all_med_actions
     # separate new actions from plans
     plan_sp = [x for x in plan.split("\n\n") if len(x.strip()) > 0]
     if len(plan_sp) != 2:
@@ -306,7 +306,7 @@ def parse_plan(plan):
             action_type = lsp[0][:lsp[0].index("(")]
             action_args = lsp[0][lsp[0].index("(")+1:lsp[0].index(")")].split(",")
             action_def = lsp[1].strip()
-            all_actions[action_type] = {"args": [x.strip() for x in action_args], "action_def": action_def}
+            all_med_actions[action_type] = {"args": [x.strip() for x in action_args], "action_def": action_def}
     except:
         error_message = "Invalid plan: new actions format is incorrect."
         return False, error_message, '\n\n'.join(plan_sp)
@@ -343,7 +343,7 @@ def parse_plan(plan):
             return False, error_message, "\n".join(plan)
         
         for action in actions:
-            if action["action"] not in all_actions and action["action"] not in this_new_actions:
+            if action["action"] not in all_med_actions and action["action"] not in this_new_actions:
                 error_message = f"Error parsing action {action['action']}. Unknown action."
                 return False, error_message, "\n".join(plan)
             
@@ -351,7 +351,7 @@ def parse_plan(plan):
                 action["action_def"] = this_new_actions[action["action"]]["action_def"]
                 defined_args = this_new_actions[action["action"]]["args"]
             else:
-                defined_args = all_actions[action["action"]]["args"]
+                defined_args = all_med_actions[action["action"]]["args"]
 
             this_args = action["args"]
 
