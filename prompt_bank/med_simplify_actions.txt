@@ -6,7 +6,9 @@ For another instance, "FIND_NOT_DESCRIBE(CTX, X)" is redundant because you can a
 
 "FIND_RELATION(CTX, X, Y)" and "FIND_RELATIONSHIP(CTX, X, Y)" and "COMPARE_RELATIONSHIP(CTX, X, Y)" can all be merged to one function.
 
-Given the above examples, please reduce the following list to at most one third of its current length. Please also include the definition of each function. Do not number the list items.
+Given the above examples, please reduce the following list to at most one third of its current length. Please also include the definition of each function. 
+
+Do not number any of the list items or functions.
 
 Actions:
 {action_list}
