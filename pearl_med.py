@@ -236,7 +236,7 @@ def generate_med_plan(question,
                 plan_prompt=None,
                 plan_prompt_invalid=None):
 
-    action_list = load_text("./output/mined_medactions_simple.txt")
+    action_list = load_text("./output/mined-medactions-simple.txt")
 
     if invalid_plan is None:
         plan_generation_prompt = load_prompt(plan_prompt)
