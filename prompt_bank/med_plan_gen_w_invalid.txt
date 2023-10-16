@@ -1,0 +1,56 @@
+[Actions]
+{action_list}
+* Note: The output of each action can be the input to other actions.
+
+[Instructions]
+Suppose you are given a question about an article, as well as a list of potential actions (shown above) that you can execute to solve the question . You can imagine the actions as functions in a program, where you have input arguments, as well as output. The output of an action can be fed as input to another action. Please present a sequence of actions that you would use to answer the question after you read the article. The sequence of actions should be specific and cover all the details about the question. Please prioritize using the actions presented in the list above. If you need to add new actions, please follow the format below. Please assign the output of each action with a distinct name, which can be passed into other actions as argument. Think twice before you provide your answer. Make sure your answer is valid, clear, and easy to understand. Keep the answer simple and remove any unnecessary steps. Do not use list comprehension or dictionary comprehension. Keep each action minimally simple. If a question is unanswerable (e.g., requires options), collect as much information as possible from the input such that it will be answerable when provided with options. Your answer should follow the format: 
+```
+New actions:
+- new_action_1(arguments) : [one-sentence general explanation] or "-None" if there no need to add new actions
+- new_action_2(arguments) : [one-sentence general explanation] or "-None" if there no need to add new actions
+
+1. output_1 = action_1(here goes arguments) : [one-sentence explanation]
+2. output_2 = action_2(here goes arguments) : [one-sentence explanation]
+...
+```
+
+The following are a few examples
+
+Question: "Any good info on Lewy Body Dementia?"
+Answer:
+New actions:
+- OVERVIEW(CTX, X) : Summarize all the essential information about X in input CTX
+- SYMPTOMS(CTX, X) : Find information about all the symptoms of X in input CTX
+- CONCAT(S1, S2, ...) : Concatenate the given inputs.
+
+1. overview = OVERVIEW(CTX, "Lewy Body Dementia") : Summarize all the essential information about Lewy Body Dementia in input CTX
+2. inherit = INHERITANCE_AND_CAUSES(CTX, "Lewy Body Dementia") : Find information about how Lewy Body Dementia is inherited, passed down, and its causes in the input CTX.
+3. symptoms = SYMPTOMS(CTX, "Lewy Body Dementia") : Find information about all the symptoms of Lewy Lewy Body Dementia in input CTX.
+4. help = SUPPORT(CTX, "Lewy Body Dementia") : Find support resources and groups for X in the input CTX.
+5. ans = CONCAT(overview, inherit, symptoms, help) : Concatenate the given strings.
+
+---
+
+Question: "Possible treatments for Vitelliform Macular Dystrophy?"
+Answer:
+New actions:
+- None
+
+1. overview = OVERVIEW(CTX, "Vitelliform Macular Dystrophy") : Summarize all the essential information about Vitelliform Macular Dystrophy in input CTX
+2. prognosis = PROGNOSIS_AND_RECOVERY(CTX, "Vitelliform Macular Dystrophy") : Find information about the prognosis, chances of recovery, and harmful effects for Vitelliform Macular Dystrophy in the input CTX.
+3. treatment = TREATMENT_AND_EFFECTIVENESS(CTX, "Vitelliform Macular Dystrophy") : Find treatment options, effectiveness, and success of Vitelliform Macular Dystrophy in the input CTX.
+4. ans = CONCAT(overview, prognosis, treatment) : Concatenate the given strings.
+
+
+[Question]
+Given the following question, 
+Question: {question}
+you just came up with the following sequence of actions as well as potential new actions:
+{invalid_plan}
+
+However, the above answer is invalid according to a parser, which returned an error message "{error_message}". Previously, you have also received error messages displayed below with other invalid plans:
+{all_error_messages}
+
+Can you edit the plan (sequence of actions) to make it valid and improve it if it is not perfect enough? Please read all the actions and their definitions carefully. Make sure that your modified plan complies with the instructions and formats shown above.
+
+[Answer]
