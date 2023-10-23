@@ -1,0 +1,21 @@
+PROGNOSIS(CTX, X)	#Find information about the prognosis and chances of recovery for X in the input CTX.
+HARMFUL_EFFECTS(CTX, X)	#Find and summarize the harmful effects of X in the input CTX.
+DIAGNOSE(CTX, X)	#Find diagnostic tests for X given the input CTX.
+PREVALENCE(CTX, X)	#Find the prevalence or commonness of X in the input CTX.
+STOP_USING(CTX, X)	#Find recommendations and steps to stop using X given the input CTX.
+TRANSMISSION(CTX, X)	#Find information about how X is transmitted or caught given the input CTX.
+TREATMENT(CTX, X)	#Find treatment options for X in the input CTX.
+EFFECTIVENESS(CTX, X)	#Find information about the effectiveness and success of X in the input CTX.
+INHERITANCE(CTX, X)	#Find information about how X is inherited or passed down in the input CTX.
+COMPATIBILITY(CTX, X, Y)	#Find information about the compatibility of X and Y in the input CTX.
+CAUSES(CTX, X)	#Find the causes of X in the input CTX.
+PREVENTION(CTX, X)	#Find prevention methods for X in the input CTX.
+SCREEN(CTX, X)	#Find screening methods for X given the input CTX.
+CAUSE(CTX, X)	#Find and summarize the cause or factors leading to X given input CTX.
+TREATMENT_OPTIONS(CTX, X)	#Find possible treatment options for X in the input CTX.
+TREAT_CAUSE(CTX, X, Y)	#Find treatment plans for X caused by Y in the input CTX.
+PREVENT(CTX, X)	#Find ways to prevent or reduce the risk of X in the input CTX.
+TEST(CTX, X)	#Find testing methods for X given the input CTX.
+DOCTORS_CONSENSUS(CTX, X)	#Find the consensus of medical doctors on X in the input CTX.
+ADMINISTER(CTX, X)	#Find the method of administering X given the input CTX.
+SUPPORT(CTX, X)	#Find support resources and groups for X in the input CTX.

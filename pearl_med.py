@@ -228,15 +228,17 @@ class Action(object):
         else:
             return "\n".join(args)
 
-def generate_med_plan(question,  
+def generate_med_plan(question,
                 invalid_plan=None, 
                 error_message=None, 
                 all_error_messages=None, 
                 debug=False, 
                 plan_prompt=None,
-                plan_prompt_invalid=None):
+                plan_prompt_invalid=None,
+                actions_file='./output/mined-medactions-simple.txt',
+                model=model_name):
 
-    action_list = load_text("./output/mined-medactions-simple.txt")
+    action_list = load_text(actions_file)
 
     if invalid_plan is None:
         plan_generation_prompt = load_prompt(plan_prompt)
@@ -246,8 +248,9 @@ def generate_med_plan(question,
         plan_generation_prompt = plan_generation_prompt.format(action_list=action_list, question=question, invalid_plan=invalid_plan, error_message=error_message, all_error_messages='\n\t' + '\n\t'.join(all_error_messages))
     if debug:
         print(plan_generation_prompt)
+
     response = get_response(plan_generation_prompt,
-                        model=model_name, 
+                        model=model, 
                         frequency_penalty=0, 
                         temperature=0.0, 
                         top_p=0.0,
