@@ -2,6 +2,7 @@ import csv
 import pdb
 import json
 import itertools
+import utils
 from utils import *
 import argparse
 from tqdm import tqdm
@@ -378,7 +379,7 @@ def parse_plan(plan):
             
     return True, actions, output_map
 
-def execute_plan(actions, plan, question, output_map, article, debug=False, model=model_name):
+def execute_plan(actions, plan, question, output_map, article, debug=False, model=utils.model_name):
     """
         Input:
             actions: a list of actions, each item is a map of the format:
