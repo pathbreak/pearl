@@ -421,8 +421,10 @@ def execute_plan(actions, plan, question, output_map, article, debug=False, mode
                 model=model)
 
         action_func_prompt = action_func.this_prompt
-        if sum([len(enc.encode(x)) for x in args]) + len(enc.encode(action_func_prompt)) + reslen + 1 > max_len:
-            truncated_idx = sum([len(enc.encode(x)) for x in args]) + len(enc.encode(action_func_prompt)) + reslen + 1 - max_len
+        args_len = sum([len(enc.encode(x)) for x in args])
+        action_prompt_len = len(enc.encode(action_func_prompt))
+        if args_len + action_prompt_len + reslen + 1 > max_len:
+            truncated_idx = args_len + action_prompt_len + reslen + 1 - max_len
             args[0] = enc.decode(enc.encode(args[0])[:-truncated_idx]) + "..."
 
         try:
