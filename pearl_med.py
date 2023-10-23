@@ -174,7 +174,8 @@ def load_csv(fname):
     return ret
 
 class Action(object):
-    def __init__(self, question, entire_plan, action_type, detailed_action, action_def=None, current_action=None):
+    def __init__(self, question, entire_plan, action_type, detailed_action, action_def=None, current_action=None,
+        model=model_name):
 
         global all_med_actions
         self.this_action = action_type
@@ -189,6 +190,7 @@ class Action(object):
             self.this_prompt += "{{CTX}}\n---\n\nPlease read the above text first, and then follow the instructions below.\n\n"
 
         self.this_prompt += f"[Instruction]\nAction:\n\n{original_action} : {self.action_def}\n\nthis_args\n---\n\n[Answer]\n(list or paragraph(s), please be thorough)\n({detailed_action})\n"   
+        self.model = model
 
     def execute(self, *args):
         try:
@@ -209,7 +211,7 @@ class Action(object):
                 self.this_prompt = self.this_prompt.replace("this_args", args_str)
             
             response = get_response(self.this_prompt,
-                                    model=model_name, 
+                                    model=self.model, #model_name, 
                                     frequency_penalty=0, 
                                     temperature=0.0, 
                                     top_p=0.0,
@@ -376,7 +378,7 @@ def parse_plan(plan):
             
     return True, actions, output_map
 
-def execute_plan(actions, plan, question, output_map, article, debug=False):
+def execute_plan(actions, plan, question, output_map, article, debug=False, model=model_name):
     """
         Input:
             actions: a list of actions, each item is a map of the format:
@@ -395,8 +397,12 @@ def execute_plan(actions, plan, question, output_map, article, debug=False):
             end_response: concatenation of last step output and intermediate output if it is not fed as input to other actions
     """
     all_args = []
-    max_len = 8192
+    max_len = max_lens[model]
+    enc = tiktoken.encoding_for_model(model)
+    if debug:
+        print(model, max_len)
     reslen = 512
+    
     for action in actions:
         action_name = action["action"]
         args = action["args"]
@@ -405,13 +411,17 @@ def execute_plan(actions, plan, question, output_map, article, debug=False):
         args = [x if x == "CTX" or "\"" in x else output_map[x] for x in args]
         args = [article if x == "CTX" else x for x in args]
         if "action_def" in action:
-            action_func = Action(question, plan, action_name, action["detailed_action"], action_def=action["action_def"], current_action=current_action) 
+            action_func = Action(question, plan, action_name, action["detailed_action"], 
+                    action_def=action["action_def"], current_action=current_action, model=model) 
         else:
-            action_func = Action(question, plan, action_name, action["detailed_action"], current_action=current_action)
+            action_func = Action(question, plan, action_name, action["detailed_action"], current_action=current_action,
+                model=model)
+
         action_func_prompt = action_func.this_prompt
         if sum([len(enc.encode(x)) for x in args]) + len(enc.encode(action_func_prompt)) + reslen + 1 > max_len:
             truncated_idx = sum([len(enc.encode(x)) for x in args]) + len(enc.encode(action_func_prompt)) + reslen + 1 - max_len
             args[0] = enc.decode(enc.encode(args[0])[:-truncated_idx]) + "..."
+
         try:
             output = action_func(*args)
         except:

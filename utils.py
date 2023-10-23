@@ -6,9 +6,13 @@ import tiktoken
 import random
 import time
 
-
-enc = tiktoken.get_encoding("p50k_base")
-model_name = "gpt-4-0314" #"gpt-4" #
+model_name = "gpt-4" # "gpt-4-0314"
+enc = tiktoken.encoding_for_model(model_name)
+max_lens = {
+    'gpt-4' : 8192,
+    'gpt-3.5-turbo-16k' : 16385,
+    'gpt-4-32k' : 32768,
+}
 max_output_len = 512
 option_map = {1: 'A', 2: 'B', 3: 'C', 4: 'D'}
 map_prompt = "Relevant information for answering the question:\n\n{open_answer}\n\nQuestion:{question}\n{options}\n\nRead the relevant information about the article and answer the question by selecting the best option above. Only one of them is correct.\n\nAnswer (select from A, B, C, D):\n"
