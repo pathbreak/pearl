@@ -2,8 +2,8 @@ import csv
 import pdb
 import json
 import itertools
-import utils
 from utils import *
+import tiktoken
 import argparse
 from tqdm import tqdm
 
@@ -379,7 +379,7 @@ def parse_plan(plan):
             
     return True, actions, output_map
 
-def execute_plan(actions, plan, question, output_map, article, debug=False, model=utils.model_name):
+def execute_plan(actions, plan, question, output_map, article, debug=False, model=None):
     """
         Input:
             actions: a list of actions, each item is a map of the format:
@@ -398,6 +398,8 @@ def execute_plan(actions, plan, question, output_map, article, debug=False, mode
             end_response: concatenation of last step output and intermediate output if it is not fed as input to other actions
     """
     all_args = []
+    if not model:
+        model = model_name
     max_len = max_lens[model]
     enc = tiktoken.encoding_for_model(model)
     if debug:
